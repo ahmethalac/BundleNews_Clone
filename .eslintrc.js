@@ -40,14 +40,14 @@ module.exports = {
         'no-case-declarations': 0,
         'react/jsx-props-no-spreading': 0,
         'react/jsx-indent-props': [2, 4],
-        'global-require': 0
+        'global-require': 0,
+        'no-shadow': 0,
+        'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false, }],
+        'object-curly-newline': ['error', {
+            multiline: true,
+            minProperties: 2
+        }]
     },
-    globals: {
-        fetch: false
-    },
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true
-        }
-    }
+    globals: { fetch: false },
+    parserOptions: { ecmaFeatures: { jsx: true } }
 };
