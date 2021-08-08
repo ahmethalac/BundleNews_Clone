@@ -3,10 +3,15 @@ import { persistReducer } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 
 import app from './appReducer';
+import news from './newsReducer';
 
-const persistConfig = {
-    key: 'root',
-    storage: AsyncStorage,
-};
-
-export default combineReducers({ app: persistReducer(persistConfig, app) });
+export default combineReducers({
+    app: persistReducer({
+        key: 'app',
+        storage: AsyncStorage,
+    }, app),
+    news: persistReducer({
+        key: 'news',
+        storage: AsyncStorage,
+    }, news)
+});
