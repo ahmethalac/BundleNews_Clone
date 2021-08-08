@@ -1,11 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Foundation, Ionicons, Feather } from '@expo/vector-icons';
-import { StatusBar } from 'react-native';
 import Home from '../screens/Home';
-import { useCustomColorScheme, useTranslate } from '../../hooks';
+import { useCustomColorScheme, useTranslate } from '../../helpers/hooks';
 import Discover from '../screens/Discover';
-import { getHeaderOptions } from '../../utils';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
 

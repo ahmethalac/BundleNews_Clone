@@ -3,10 +3,7 @@ import React from 'react';
 import { registerRootComponent } from 'expo';
 import { NavigationContainer } from '@react-navigation/native';
 import createSagaMiddleware from 'redux-saga';
-import {
-    createStore,
-    applyMiddleware
-} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import AppLoading from 'expo-app-loading';
