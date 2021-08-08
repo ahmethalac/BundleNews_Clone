@@ -1,8 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Foundation, Ionicons, Feather } from '@expo/vector-icons';
+import { StatusBar } from 'react-native';
 import Home from '../screens/Home';
-import { useCustomColorScheme } from '../../hooks';
+import { useCustomColorScheme, useTranslate } from '../../hooks';
 import Discover from '../screens/Discover';
 import { getHeaderOptions } from '../../utils';
 import Search from '../screens/Search';
@@ -12,14 +13,31 @@ const { Screen, Navigator } = createBottomTabNavigator();
 
 export default function CustomNavigator() {
     const colorScheme = useCustomColorScheme();
+    const translate = useTranslate();
     return (
         <Navigator
             initialRouteName="Home"
             screenOptions={{
-                tabBarStyle: { backgroundColor: '#000' },
+                tabBarStyle: {
+                    backgroundColor: '#000',
+                    borderTopColor: 'transparent',
+                },
                 tabBarActiveTintColor: '#FFF',
                 tabBarInactiveTintColor: '#777',
                 tabBarShowLabel: false,
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: colorScheme === 'light' ? '#EEE' : '#000',
+                    shadowColor: 'transparent'
+                },
+                headerTitleStyle: {
+                    fontFamily: 'Barlow-ExtraBold',
+                    fontSize: 14,
+                    color: colorScheme === 'light' ? '#000' : '#FFF',
+                }
+            }}
+            sceneContainerStyle={{
+                backgroundColor: colorScheme === 'light' ? '#FFF' : '#111'
             }}
             // eslint-disable-next-line indent
         >
@@ -27,7 +45,7 @@ export default function CustomNavigator() {
                 name="Home"
                 component={Home}
                 options={{
-                    ...getHeaderOptions('ALL', colorScheme),
+                    headerTitle: translate('ALL'),
                     tabBarIcon: ({ color, size }) => <Foundation name="home" size={(size * 6) / 5} color={color} />
                 }}
             />
@@ -35,7 +53,7 @@ export default function CustomNavigator() {
                 name="Discover"
                 component={Discover}
                 options={{
-                    ...getHeaderOptions('DISCOVER', colorScheme),
+                    headerTitle: translate('DISCOVER'),
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
                             name={focused ? 'ios-compass' : 'ios-compass-outline'}
@@ -50,13 +68,7 @@ export default function CustomNavigator() {
                 component={Search}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Feather
-                            name="search"
-                            size={(size * 6) / 5}
-                            color={color}
-                        />
-                    )
+                    tabBarIcon: ({ color, size }) => <Feather name="search" size={(size * 6) / 5} color={color} />
                 }}
             />
             <Screen

@@ -1,15 +1,21 @@
 import React from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
-import { Foundation } from '@expo/vector-icons';
+
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
-import { changeColorScheme } from '../../../actions';
+import { changeColorScheme, changeLanguage } from '../../../actions';
+import { useCustomColorScheme } from '../../../hooks';
 
 export default function Home() {
     const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const colorScheme = useCustomColorScheme();
+
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
+            {navigation.isFocused() && <StatusBar barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'} /> }
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
@@ -30,7 +36,26 @@ export default function Home() {
                     Light
                 </Text>
             </TouchableOpacity>
-            <Foundation name="home" size={24} color="black" />
-        </SafeAreaView>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                    dispatch(changeLanguage('tr'));
+                }}
+            >
+                <Text style={styles.text}>
+                    Language=TR
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                    dispatch(changeLanguage('en'));
+                }}
+            >
+                <Text style={styles.text}>
+                    Language=EN
+                </Text>
+            </TouchableOpacity>
+        </View>
     );
 }
