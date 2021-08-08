@@ -1,5 +1,5 @@
 import {
-    CHANGE_COLOR_SCHEME, NAVIGATE_SUCCESS
+    CHANGE_COLOR_SCHEME, CHANGE_LANGUAGE, NAVIGATE_SUCCESS
 } from '../constants/actionTypes';
 
 const INITIAL_STATE = {};
@@ -18,6 +18,13 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 colorScheme
+            };
+        }
+        case CHANGE_LANGUAGE: {
+            const language = action.payload;
+            return {
+                ...state,
+                language
             };
         }
         default:
