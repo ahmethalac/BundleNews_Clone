@@ -1,9 +1,8 @@
 import React from 'react';
-import {
-    SafeAreaView, Text
-} from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
+import { Foundation } from '@expo/vector-icons';
 import styles from './styles';
 import { changeColorScheme } from '../../../actions';
 
@@ -31,6 +30,7 @@ export default function Home() {
                     Light
                 </Text>
             </TouchableOpacity>
+            <Foundation name="home" size={24} color="black" />
         </SafeAreaView>
     );
 }

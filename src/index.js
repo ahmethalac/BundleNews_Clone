@@ -31,7 +31,7 @@ const persistor = persistStore(store);
 sagaMiddleware.run(middlewares);
 
 function App() {
-    const [fontsLoaded] = useFonts({ 'Barlow-Black': require('../assets/fonts/Barlow-Black.ttf'), });
+    const [fontsLoaded] = useFonts({ 'Barlow-ExtraBold': require('../assets/fonts/Barlow-ExtraBold.ttf'), });
 
     if (!fontsLoaded) {
         return <AppLoading />;
