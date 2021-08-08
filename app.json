@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "BundleNews_Clone",
-    "slug": "BundleNews_Clone",
+    "slug": "bundleClone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,14 +18,18 @@
     ],
     "ios": {
       "userInterfaceStyle": "automatic",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ahmethalac.bundleClone",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.ahmethalac.bundleClone",
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "backgroundColor": "#FFFFFF"
+      },
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

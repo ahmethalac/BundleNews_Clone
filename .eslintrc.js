@@ -43,6 +43,7 @@ module.exports = {
         'no-shadow': 0,
         'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false, }],
         'arrow-parens': ['error', 'as-needed'],
+        'no-plusplus': 0
     },
     globals: { fetch: false },
     parserOptions: { ecmaFeatures: { jsx: true } }
