@@ -3,12 +3,13 @@ import { View, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllNews } from '../../../actions/newsActions';
 import { useCustomColorScheme } from '../../../helpers/hooks';
-import { languageSelector } from '../../../selectors';
+import { languageSelector, layoutSelector } from '../../../selectors';
 import styles from './styles';
 
 export default function Home() {
     const dispatch = useDispatch();
     const language = useSelector(languageSelector);
+    const layout = useSelector(layoutSelector);
 
     useEffect(() => {
         dispatch(fetchAllNews({ language }));

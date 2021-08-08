@@ -16,4 +16,12 @@ const rootStyles = StyleSheet.create({
     }
 });
 
+export const layoutButtonStyles = StyleSheet.create({
+    container: {
+        width: '40%',
+        textAlign: 'center',
+        alignItems: 'center'
+    }
+});
+
 export default rootStyles;

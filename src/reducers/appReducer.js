@@ -1,5 +1,5 @@
 import {
-    CHANGE_COLOR_SCHEME, CHANGE_LANGUAGE, NAVIGATE_SUCCESS
+    CHANGE_COLOR_SCHEME, CHANGE_LANGUAGE, CHANGE_LAYOUT, NAVIGATE_SUCCESS
 } from '../constants/actionTypes';
 
 const INITIAL_STATE = {};
@@ -25,6 +25,13 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 language
+            };
+        }
+        case CHANGE_LAYOUT: {
+            const layout = action.payload;
+            return {
+                ...state,
+                layout
             };
         }
         default:

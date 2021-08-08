@@ -1,7 +1,8 @@
 import {
     NAVIGATE_REQUEST,
     CHANGE_COLOR_SCHEME,
-    CHANGE_LANGUAGE
+    CHANGE_LANGUAGE,
+    CHANGE_LAYOUT
 } from '../constants/actionTypes';
 
 export const navigateToPage = payload => ({
@@ -16,5 +17,10 @@ export const changeColorScheme = payload => ({
 
 export const changeLanguage = payload => ({
     type: CHANGE_LANGUAGE,
+    payload
+});
+
+export const changeLayout = payload => ({
+    type: CHANGE_LAYOUT,
     payload
 });

@@ -6,6 +6,7 @@ import { useCustomColorScheme, useTranslate } from '../../helpers/hooks';
 import Discover from '../screens/Discover';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
+import LayoutButton from '../screens/Home/LayoutButton';
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
@@ -44,7 +45,8 @@ export default function CustomNavigator() {
                 component={Home}
                 options={{
                     headerTitle: translate('ALL'),
-                    tabBarIcon: ({ color, size }) => <Foundation name="home" size={(size * 6) / 5} color={color} />
+                    tabBarIcon: ({ color, size }) => <Foundation name="home" size={(size * 6) / 5} color={color} />,
+                    headerRight: props => <LayoutButton {...props} />
                 }}
             />
             <Screen
