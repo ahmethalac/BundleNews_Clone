@@ -75,7 +75,6 @@ export default function CustomNavigator() {
                 name="Notifications"
                 component={Notifications}
                 options={{
-                    ...getHeaderOptions('DISCOVER', colorScheme),
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
                             name={focused ? 'notifications-sharp' : 'notifications-outline'}
