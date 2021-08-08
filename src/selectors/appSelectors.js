@@ -1,3 +1,2 @@
-import { createSelector } from 'reselect';
-
-export const getApp = (state) => state.app;
+export const appSelector = (state) => state.app;
+export const colorSchemeSelector = (state) => state?.app?.colorScheme;
