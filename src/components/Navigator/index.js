@@ -26,7 +26,7 @@ export default function CustomNavigator() {
                 tabBarShowLabel: false,
                 headerTitleAlign: 'center',
                 headerStyle: {
-                    backgroundColor: colorScheme === 'light' ? '#EEE' : '#000',
+                    backgroundColor: colorScheme === 'light' ? '#EEE' : '#12161B',
                     shadowColor: 'transparent'
                 },
                 headerTitleStyle: {
@@ -36,7 +36,7 @@ export default function CustomNavigator() {
                 }
             }}
             sceneContainerStyle={{
-                backgroundColor: colorScheme === 'light' ? '#FFF' : '#111'
+                backgroundColor: colorScheme === 'light' ? '#EEE' : '#12161B'
             }}
             // eslint-disable-next-line indent
         >

@@ -8,31 +8,41 @@ export const layoutButtonStyles = StyleSheet.create({
     }
 });
 
-export const newCardStyles = StyleSheet.create({
-    grid: {
+export const newCardGrid = StyleSheet.create({
+    container: {
+        margin: '4%',
+        borderRadius: 5,
+    },
+    source: {
+        fontFamily: 'Barlow-Bold',
+        marginLeft: '7%',
+        marginTop: 15,
+        fontSize: 12,
+        color: '#BBB',
+    },
+    name: {
+        fontFamily: 'Barlow-Bold',
+        fontSize: 20,
+        marginLeft: '7%',
+        marginTop: 15,
+        marginBottom: 15,
+        marginRight: 15,
+    }
+});
+
+export const newCardList = StyleSheet.create({
+    container: {
+        margin: '2%',
+    }
+});
+
+export const newCardBigList = StyleSheet.create({
+    container: {
         backgroundColor: 'blue',
-    },
-    list: {
-        backgroundColor: 'pink',
-    },
-    bigList: {
-        backgroundColor: 'red'
     }
 });
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    button: {
-        backgroundColor: '#ccc',
-        padding: 20,
-        borderRadius: 10,
-    },
-    text: {
-        fontSize: 30
-    },
     loading: {
         position: 'absolute',
         width: '100%',
