@@ -2,9 +2,10 @@ import { StyleSheet } from 'react-native';
 
 export const layoutButtonStyles = StyleSheet.create({
     container: {
-        width: '40%',
-        textAlign: 'center',
-        alignItems: 'center'
+        flex: 1,
+        width: '30%',
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 });
 

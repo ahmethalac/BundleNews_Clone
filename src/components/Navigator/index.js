@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Foundation, Ionicons, Feather } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import Home from '../screens/Home';
 import { useCustomColorScheme, useTranslate } from '../../helpers/hooks';
 import Discover from '../screens/Discover';
@@ -45,8 +45,14 @@ export default function CustomNavigator() {
                 component={Home}
                 options={{
                     headerTitle: translate('ALL'),
-                    tabBarIcon: ({ color, size }) => <Foundation name="home" size={(size * 6) / 5} color={color} />,
-                    headerRight: props => <LayoutButton {...props} />
+                    tabBarIcon: ({ focused, color, size }) => (
+                        <Ionicons
+                            name={focused ? 'md-home-sharp' : 'md-home-outline'}
+                            size={(size * 6) / 5}
+                            color={color}
+                        />
+                    ),
+                    headerRight: props => <LayoutButton {...props} />,
                 }}
             />
             <Screen

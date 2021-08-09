@@ -1,11 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { MaterialCommunityIcons, Entypo, SimpleLineIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo, createIconSet } from '@expo/vector-icons';
 import { layoutSelector } from '../../../selectors';
 import { layoutButtonStyles as styles } from './styles';
 import { useCustomColorScheme } from '../../../helpers/hooks';
 import { changeLayout } from '../../../actions';
+
+const glyphMap = { list: '' };
+const CustomIcon = createIconSet(glyphMap, 'FontName', require('../../../../assets/listLayout.ttf'));
 
 export default function LayoutButton() {
     const layout = useSelector(layoutSelector);
@@ -25,7 +28,7 @@ export default function LayoutButton() {
             break;
         case 'grid':
         default:
-            Icon = props => <MaterialCommunityIcons name="menu" {...props} size={30} />;
+            Icon = props => <CustomIcon name="list" {...props} size={20} />;
             nextLayout = 'list';
             break;
     }
@@ -35,12 +38,11 @@ export default function LayoutButton() {
     };
 
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={handleLayoutChange}>
             <Icon
                 size={25}
                 color={colorScheme === 'light' ? '#000' : '#FFF'}
-                onPress={handleLayoutChange}
             />
-        </View>
+        </Pressable>
     );
 }

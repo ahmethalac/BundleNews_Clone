@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import {
-    View, Text, Image, TouchableNativeFeedback
+    View, Text, Image, Pressable
 } from 'react-native';
 import { useCustomColorScheme } from '../../../helpers/hooks';
 import { newCardGrid, newCardList, newCardBigList } from './styles';
@@ -63,7 +63,7 @@ export default function NewCard({
             titleComponent,
             titleAndSourceComponent
         };
-    }, [image, source, name, layoutStyles]);
+    }, [image, source, name, layoutStyles, colorScheme]);
 
     const layoutOrder = useMemo(() => {
         const {
@@ -86,10 +86,10 @@ export default function NewCard({
     }, [layout, components]);
 
     return (
-        <TouchableNativeFeedback onPress={onPressHandler} useForeground>
+        <Pressable onPress={onPressHandler} useForeground>
             <View style={[layoutStyles.container, { backgroundColor: colorScheme === 'light' ? '#FFF' : '#181E25' }]}>
                 {layoutOrder}
             </View>
-        </TouchableNativeFeedback>
+        </Pressable>
     );
 }
