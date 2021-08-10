@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const layoutButtonStyles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '30%',
+        width: '35%',
         alignItems: 'center',
         justifyContent: 'center'
     }
