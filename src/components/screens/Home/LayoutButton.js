@@ -1,14 +1,11 @@
 import React from 'react';
 import { Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { MaterialCommunityIcons, Entypo, createIconSet } from '@expo/vector-icons';
 import { layoutSelector } from '../../../selectors';
 import { layoutButtonStyles as styles } from './styles';
 import { useCustomColorScheme } from '../../../helpers/hooks';
 import { changeLayout } from '../../../actions';
-
-const glyphMap = { list: '' };
-const CustomIcon = createIconSet(glyphMap, 'FontName', require('../../../../assets/listLayout.ttf'));
+import { LayoutIcon } from '../../../helpers/customIconFonts';
 
 export default function LayoutButton() {
     const layout = useSelector(layoutSelector);
@@ -19,16 +16,16 @@ export default function LayoutButton() {
         nextLayout;
     switch (layout) {
         case 'list':
-            Icon = props => <Entypo name="document-landscape" {...props} />;
+            Icon = props => <LayoutIcon name="bigListIcon" {...props} />;
             nextLayout = 'bigList';
             break;
         case 'bigList':
-            Icon = props => <MaterialCommunityIcons name="trello" {...props} />;
+            Icon = props => <LayoutIcon name="gridIcon" {...props} />;
             nextLayout = 'grid';
             break;
         case 'grid':
         default:
-            Icon = props => <CustomIcon name="list" {...props} size={20} />;
+            Icon = props => <LayoutIcon name="listIcon" {...props} />;
             nextLayout = 'list';
             break;
     }
@@ -40,7 +37,7 @@ export default function LayoutButton() {
     return (
         <Pressable style={styles.container} onPress={handleLayoutChange}>
             <Icon
-                size={25}
+                size={20}
                 color={colorScheme === 'light' ? '#000' : '#FFF'}
             />
         </Pressable>

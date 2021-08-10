@@ -30,7 +30,8 @@ sagaMiddleware.run(middlewares);
 function App() {
     const [fontsLoaded] = useFonts({
         'Barlow-ExtraBold': require('../assets/fonts/Barlow-ExtraBold.ttf'),
-        'Barlow-Bold': require('../assets/fonts/Barlow-Bold.ttf')
+        'Barlow-Bold': require('../assets/fonts/Barlow-Bold.ttf'),
+        LayoutButton: require('../assets/fonts/layoutButton.ttf')
     });
 
     if (!fontsLoaded) {
