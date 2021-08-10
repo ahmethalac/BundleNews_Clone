@@ -31,9 +31,9 @@ export default function NewCard({
     }
 
     const components = useMemo(() => {
-        const imageComponent = (
+        const imageComponent = image.length > 0 && (
             <Image
-                source={image ? { uri: image } : require('../../../../assets/icon.png')}
+                source={{ uri: image }}
                 style={{
                 height: 120,
                 width: '100%',
@@ -49,7 +49,15 @@ export default function NewCard({
                 {source.toUpperCase()}
             </Text>
         );
-        const titleComponent = <Text style={[layoutStyles.name, { color: colorScheme === 'light' ? '#000' : '#FFF' }]} key="title">{name}</Text>;
+        const titleComponent = (
+            <Text
+                style={[layoutStyles.name, { color: colorScheme === 'light' ? '#000' : '#FFF' }]}
+                key="title"
+                // eslint-disable-next-line indent
+            >
+                {name}
+            </Text>
+        );
 
         const titleAndSourceComponent = (
             <View key="title&source" style={layoutStyles.leftPart}>
