@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native';
 
 import app from './appReducer';
 import news from './newsReducer';
+import bookmarks from './bookmarkReducer';
 
 export default combineReducers({
     app: persistReducer({
@@ -13,5 +14,9 @@ export default combineReducers({
     news: persistReducer({
         key: 'news',
         storage: AsyncStorage,
-    }, news)
+    }, news),
+    bookmarks: persistReducer({
+        key: 'bookmarks',
+        storage: AsyncStorage,
+    }, bookmarks)
 });
