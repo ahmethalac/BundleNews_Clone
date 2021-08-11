@@ -10,7 +10,8 @@ import LayoutButton from '../screens/Home/LayoutButton';
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
-export default function CustomNavigator() {
+export default function TabNavigator({ route }) {
+    console.log(route);
     const colorScheme = useCustomColorScheme();
     const translate = useTranslate();
     return (

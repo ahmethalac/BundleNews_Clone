@@ -12,7 +12,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import reducers from './reducers';
 import middlewares from './middlewares';
-import CustomNavigator from './components/Navigator';
+import StackNavigator from './components/navigators/StackNavigator';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -42,7 +42,7 @@ function App() {
         <Provider store={store}>
             <PersistGate loading={<AppLoading />} persistor={persistor}>
                 <NavigationContainer>
-                    <CustomNavigator />
+                    <StackNavigator />
                 </NavigationContainer>
             </PersistGate>
         </Provider>

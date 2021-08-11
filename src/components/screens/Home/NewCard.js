@@ -8,7 +8,6 @@ import { useCustomColorScheme } from '../../../helpers/hooks';
 import { newCardGrid, newCardList, newCardBigList } from './styles';
 
 export default function NewCard({
-    description,
     image,
     name,
     source,
@@ -18,7 +17,10 @@ export default function NewCard({
     const navigation = useNavigation();
     const colorScheme = useCustomColorScheme();
     const onPressHandler = () => {
-        navigation.navigate('Test');
+        navigation.navigate('Details', {
+            url,
+            source
+        });
     };
     const handleBookmark = () => { console.log('bookmark', name); };
     const handleShare = () => { console.log('share', name); };
