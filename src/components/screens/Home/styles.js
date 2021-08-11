@@ -15,32 +15,73 @@ export const newCardGrid = StyleSheet.create({
         borderRadius: 5,
     },
     source: {
-        fontFamily: 'Barlow-Bold',
         marginLeft: '7%',
         marginTop: 15,
-        fontSize: 12,
-        color: '#BBB',
+        fontSize: 12
     },
     name: {
-        fontFamily: 'Barlow-Bold',
         fontSize: 20,
         marginLeft: '7%',
         marginTop: 15,
         marginBottom: 15,
         marginRight: 15,
+    },
+    image: {
+        height: 120,
+        width: '100%',
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
     }
 });
 
 export const newCardList = StyleSheet.create({
     container: {
-        margin: '2%',
-    }
+        padding: '5%',
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+    },
+    leftPart: {
+        flex: 1,
+        justifyContent: 'space-between',
+        marginRight: 10
+    },
+    image: {
+        width: 120,
+        height: 80,
+        borderRadius: 10
+    },
+    name: {
+        fontSize: 17,
+        marginBottom: 10
+    },
 });
 
 export const newCardBigList = StyleSheet.create({
     container: {
-        backgroundColor: 'blue',
-    }
+        marginBottom: 30,
+        padding: 25,
+        paddingBottom: 15
+    },
+    image: {
+        width: '100%',
+        height: 200,
+        borderRadius: 10
+    },
+    name: {
+        fontSize: 23,
+        marginTop: 15,
+        marginBottom: 15,
+    },
+    sourceWithAction: {
+        flexDirection: 'row',
+        alignItems: 'flex-end'
+    },
+    actionButton: {
+        padding: 10,
+        paddingBottom: 0,
+        marginLeft: 15
+    },
 });
 
 export default StyleSheet.create({
