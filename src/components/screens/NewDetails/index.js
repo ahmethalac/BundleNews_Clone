@@ -1,11 +1,13 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { WebView } from 'react-native-webview';
 import { View } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Bar } from 'react-native-progress';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { useColorPalette } from '../../../helpers/hooks';
+import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
 
 export default function NewDetails({ route: { params: { url } } }) {
     const [state, setState] = useState({
@@ -17,6 +19,8 @@ export default function NewDetails({ route: { params: { url } } }) {
     const viewRef = useRef(null);
     const colorPalette = useColorPalette();
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const isBookmarked = useSelector(state => state?.bookmarks?.bookmarkedNews?.indexOf(url) > -1);
 
     const handleBackButton = () => {
         if (state.canGoBack) {
@@ -39,6 +43,33 @@ export default function NewDetails({ route: { params: { url } } }) {
         return colorPalette.headerBackground;
     }, [state.loading, colorPalette]);
 
+    const handleBookmark = () => {
+        if (isBookmarked) {
+            dispatch(removeBookmark(url));
+        } else {
+            dispatch(bookmarkNew(url));
+        }
+    };
+
+    const handleLoadProgress = ({ nativeEvent }) => {
+        const { progress } = nativeEvent;
+        setState({
+            ...state,
+            progress,
+            loading: progress !== 1
+        });
+    };
+
+    const handleNavigationChange = navState => {
+        const { canGoForward, canGoBack } = navState;
+        setState({
+            ...state,
+            canGoForward,
+            canGoBack,
+            loading: false
+        });
+    };
+
     return (
         <View style={styles.container}>
             <Bar
@@ -55,8 +86,8 @@ export default function NewDetails({ route: { params: { url } } }) {
                 ref={viewRef}
                 source={{ uri: url }}
                 originWhitelist={['*']}
-                onLoadProgress={({ nativeEvent }) => setState(nativeEvent)}
-                onNavigationStateChange={navState => setState(navState)}
+                onLoadProgress={handleLoadProgress}
+                onNavigationStateChange={handleNavigationChange}
             />
             <View style={[{ backgroundColor: colorPalette.headerBackground }, styles.bottomBar]}>
                 <FontAwesome5
@@ -75,6 +106,21 @@ export default function NewDetails({ route: { params: { url } } }) {
                     style={styles.button}
                 />
                 )}
+                <View style={{ flex: 1 }} />
+                <Ionicons
+                    name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
+                    size={20}
+                    color={colorPalette.primary}
+                    style={styles.button}
+                    onPress={handleBookmark}
+                />
+                <Feather
+                    name="share"
+                    size={20}
+                    color={colorPalette.primary}
+                    style={styles.button}
+                    // onPress={handleShare}
+                />
             </View>
         </View>
     );
