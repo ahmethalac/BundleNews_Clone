@@ -1894,10 +1894,10 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
-"@react-native-seoul/masonry-list@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@react-native-seoul/masonry-list/-/masonry-list-1.0.6.tgz#0a9d00a1d73e2358741fecf7586b0ac047c33de4"
-  integrity sha512-IyCRxdaLe7B7hbYS9qZSiUi54R/uWCZ9igIYTqqWUPGKrQmLJweVILUAw/vapVZvGSuwtz1/aTMHTtl1HseezQ==
+"@react-native-seoul/masonry-list@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@react-native-seoul/masonry-list/-/masonry-list-1.0.7.tgz#68ea2f3a7f3cc2c79add04c3557632afd8fdd522"
+  integrity sha512-PG+njwv6ATG4+LZM33rBlmB8Kn5kVdk62gjhdxj5l9d13+63h5SpK4GuXwXZG/yRz+TUzoMYU7ENsJWI/zUb8g==
   dependencies:
     dooboolab-welcome "^1.1.0"
 

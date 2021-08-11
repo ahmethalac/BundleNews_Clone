@@ -4,8 +4,11 @@ import {
 } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import { useColorPalette } from '../../../helpers/hooks';
 import { newCardGrid, newCardList, newCardBigList } from './styles';
+import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
+import { onShare } from '../../../helpers/utils';
 
 export default function NewCard({
     image,
@@ -16,6 +19,9 @@ export default function NewCard({
 }) {
     const navigation = useNavigation();
     const colorPalette = useColorPalette();
+    const dispatch = useDispatch();
+    const isBookmarked = useSelector(state => state?.bookmarks?.bookmarkedNews?.indexOf(url) > -1);
+
     const onPressHandler = () => {
         navigation.navigate('Details', {
             url,
@@ -36,8 +42,19 @@ export default function NewCard({
     }, [layout]);
 
     const components = useMemo(() => {
-        const handleBookmark = () => { console.log('bookmark', name); };
-        const handleShare = () => { console.log('share', name); };
+        const handleBookmark = () => {
+            if (isBookmarked) {
+                dispatch(removeBookmark(url));
+            } else {
+                dispatch(bookmarkNew(url));
+            }
+        };
+        const handleShare = () => {
+            onShare({
+                message: url,
+                type: 'url'
+            });
+        };
         const imageComponent = (
             <Image
                 source={image ? { uri: image } : require('../../../../assets/iconBackground.png')}
@@ -69,7 +86,7 @@ export default function NewCard({
                 {sourceComponent}
                 <View style={{ flex: 1 }} />
                 <Ionicons
-                    name="bookmark-outline"
+                    name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                     size={20}
                     color={colorPalette.primary}
                     style={layoutStyles.actionButton}
@@ -112,7 +129,7 @@ export default function NewCard({
             titleAndSourceComponent,
             sourceWithActionsComponent
         };
-    }, [image, source, name, layoutStyles, colorPalette]);
+    }, [layoutStyles, colorPalette, isBookmarked]);
 
     const layoutOrder = useMemo(() => {
         const {

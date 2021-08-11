@@ -18,7 +18,6 @@ module.exports = {
         'react/prop-types': 'off',
         'comma-dangle': 'off',
         'padded-blocks': 'off',
-        'react-hooks/exhaustive-deps': 'warn',
         'react-native/no-unused-styles': 2,
         'react-native/split-platform-components': 2,
         'react-native/no-inline-styles': 0,
@@ -44,7 +43,7 @@ module.exports = {
         'object-property-newline': ['error', { allowAllPropertiesOnSameLine: false, }],
         'arrow-parens': ['error', 'as-needed'],
         'no-plusplus': 0,
-        'react/no-array-index-key': 0
+        'react/no-array-index-key': 0,
     },
     globals: { fetch: false },
     parserOptions: { ecmaFeatures: { jsx: true } }

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles';
 import { useColorPalette } from '../../../helpers/hooks';
 import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
+import { onShare } from '../../../helpers/utils';
 
 export default function NewDetails({ route: { params: { url } } }) {
     const [state, setState] = useState({
@@ -49,6 +50,13 @@ export default function NewDetails({ route: { params: { url } } }) {
         } else {
             dispatch(bookmarkNew(url));
         }
+    };
+
+    const handleShare = () => {
+        onShare({
+            message: url,
+            type: 'url'
+        });
     };
 
     const handleLoadProgress = ({ nativeEvent }) => {
@@ -119,7 +127,7 @@ export default function NewDetails({ route: { params: { url } } }) {
                     size={20}
                     color={colorPalette.primary}
                     style={{ paddingRight: 30 }}
-                    // onPress={handleShare}
+                    onPress={handleShare}
                 />
             </View>
         </View>
