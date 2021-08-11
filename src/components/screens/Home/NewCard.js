@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { useCustomColorScheme } from '../../../helpers/hooks';
+import { useColorPalette } from '../../../helpers/hooks';
 import { newCardGrid, newCardList, newCardBigList } from './styles';
 
 export default function NewCard({
@@ -15,31 +15,29 @@ export default function NewCard({
     layout
 }) {
     const navigation = useNavigation();
-    const colorScheme = useCustomColorScheme();
+    const colorPalette = useColorPalette();
     const onPressHandler = () => {
         navigation.navigate('Details', {
             url,
             source
         });
     };
-    const handleBookmark = () => { console.log('bookmark', name); };
-    const handleShare = () => { console.log('share', name); };
 
-    let layoutStyles;
-    switch (layout) {
-        case 'list':
-            layoutStyles = newCardList;
-            break;
-        case 'bigList':
-            layoutStyles = newCardBigList;
-            break;
-        case 'grid':
-        default:
-            layoutStyles = newCardGrid;
-            break;
-    }
+    const layoutStyles = useMemo(() => {
+        switch (layout) {
+            case 'list':
+                return newCardList;
+            case 'bigList':
+                return newCardBigList;
+            case 'grid':
+            default:
+                return newCardGrid;
+        }
+    }, [layout]);
 
     const components = useMemo(() => {
+        const handleBookmark = () => { console.log('bookmark', name); };
+        const handleShare = () => { console.log('share', name); };
         const imageComponent = (
             <Image
                 source={image ? { uri: image } : require('../../../../assets/iconBackground.png')}
@@ -54,7 +52,7 @@ export default function NewCard({
                 style={[
                     {
                         fontFamily: 'Barlow-Bold',
-                        color: '#777',
+                        color: colorPalette.gray,
                         fontSize: 10
                     },
                     layoutStyles.source,
@@ -73,14 +71,14 @@ export default function NewCard({
                 <Ionicons
                     name="bookmark-outline"
                     size={20}
-                    color={colorScheme === 'light' ? '#000' : '#FFF'}
+                    color={colorPalette.primary}
                     style={layoutStyles.actionButton}
                     onPress={handleBookmark}
                 />
                 <Feather
                     name="share"
                     size={20}
-                    color={colorScheme === 'light' ? '#000' : '#FFF'}
+                    color={colorPalette.primary}
                     style={layoutStyles.actionButton}
                     onPress={handleShare}
                 />
@@ -90,7 +88,7 @@ export default function NewCard({
         const titleComponent = (
             <Text
                 style={[layoutStyles.name, {
-                    color: colorScheme === 'light' ? '#000' : '#FFF',
+                    color: colorPalette.primary,
                     fontFamily: 'Barlow-Bold'
                  }]}
                 key="title"
@@ -114,7 +112,7 @@ export default function NewCard({
             titleAndSourceComponent,
             sourceWithActionsComponent
         };
-    }, [image, source, name, layoutStyles, colorScheme]);
+    }, [image, source, name, layoutStyles, colorPalette]);
 
     const layoutOrder = useMemo(() => {
         const {
@@ -139,7 +137,7 @@ export default function NewCard({
 
     return (
         <Pressable onPress={onPressHandler} useForeground>
-            <View style={[layoutStyles.container, { backgroundColor: colorScheme === 'light' ? '#FFF' : '#181E25' }]}>
+            <View style={[layoutStyles.container, { backgroundColor: colorPalette.secondary }]}>
                 {layoutOrder}
             </View>
         </Pressable>

@@ -3,13 +3,13 @@ import { Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { layoutSelector } from '../../../selectors';
 import { layoutButtonStyles as styles } from './styles';
-import { useCustomColorScheme } from '../../../helpers/hooks';
+import { useColorPalette } from '../../../helpers/hooks';
 import { changeLayout } from '../../../actions';
 import { LayoutIcon } from '../../../helpers/customIconFonts';
 
 export default function LayoutButton() {
     const layout = useSelector(layoutSelector);
-    const colorScheme = useCustomColorScheme();
+    const colorPalette = useColorPalette();
     const dispatch = useDispatch();
 
     let Icon; let
@@ -38,7 +38,7 @@ export default function LayoutButton() {
         <Pressable style={styles.container} onPress={handleLayoutChange}>
             <Icon
                 size={20}
-                color={colorScheme === 'light' ? '#000' : '#FFF'}
+                color={colorPalette.primary}
             />
         </Pressable>
     );

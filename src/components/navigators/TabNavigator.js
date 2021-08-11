@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import Home from '../screens/Home';
-import { useCustomColorScheme, useTranslate } from '../../helpers/hooks';
+import { useColorPalette, useTranslate } from '../../helpers/hooks';
 import Discover from '../screens/Discover';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
@@ -10,34 +10,33 @@ import LayoutButton from '../screens/Home/LayoutButton';
 
 const { Screen, Navigator } = createBottomTabNavigator();
 
-export default function TabNavigator({ route }) {
-    console.log(route);
-    const colorScheme = useCustomColorScheme();
+export default function TabNavigator() {
+    const colorPalette = useColorPalette();
     const translate = useTranslate();
     return (
         <Navigator
             initialRouteName="Home"
             screenOptions={{
                 tabBarStyle: {
-                    backgroundColor: '#000',
+                    backgroundColor: colorPalette.black,
                     borderTopColor: 'transparent',
                 },
-                tabBarActiveTintColor: '#FFF',
-                tabBarInactiveTintColor: '#777',
+                tabBarActiveTintColor: colorPalette.white,
+                tabBarInactiveTintColor: colorPalette.gray,
                 tabBarShowLabel: false,
                 headerTitleAlign: 'center',
                 headerStyle: {
-                    backgroundColor: colorScheme === 'light' ? '#EEE' : '#12161B',
+                    backgroundColor: colorPalette.headerBackground,
                     shadowColor: 'transparent'
                 },
                 headerTitleStyle: {
                     fontFamily: 'Barlow-ExtraBold',
                     fontSize: 14,
-                    color: colorScheme === 'light' ? '#000' : '#FFF',
+                    color: colorPalette.primary,
                 }
             }}
             sceneContainerStyle={{
-                backgroundColor: colorScheme === 'light' ? '#EEE' : '#12161B'
+                backgroundColor: colorPalette.headerBackground
             }}
             // eslint-disable-next-line indent
         >

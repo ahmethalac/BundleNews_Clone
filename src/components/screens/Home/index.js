@@ -5,13 +5,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import MasonryList from '@react-native-seoul/masonry-list';
 import { fetchAllNews } from '../../../actions/newsActions';
-import { useCustomColorScheme } from '../../../helpers/hooks';
+import { useColorPalette } from '../../../helpers/hooks';
 import { languageSelector, layoutSelector } from '../../../selectors';
 import { newsSelector } from '../../../selectors/newsSelectors';
 import NewCard from './NewCard';
 
 export default function Home() {
-    const colorScheme = useCustomColorScheme();
+    const colorPalette = useColorPalette();
     const dispatch = useDispatch();
     const language = useSelector(languageSelector);
     const layout = useSelector(layoutSelector);
@@ -43,7 +43,7 @@ export default function Home() {
 
     return (
         <View>
-            <StatusBar barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'} />
+            <StatusBar barStyle={colorPalette.barStyle} />
             <MasonryList
                 key={layout}
                 onRefresh={handleRefresh}
