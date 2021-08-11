@@ -9,8 +9,4 @@ export default StyleSheet.create({
         paddingTop: 15,
         flexDirection: 'row',
     },
-    button: {
-        paddingRight: 30,
-        paddingLeft: 30
-    }
 });

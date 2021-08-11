@@ -95,7 +95,7 @@ export default function NewDetails({ route: { params: { url } } }) {
                     size={20}
                     color={colorPalette.primary}
                     onPress={handleBackButton}
-                    style={styles.button}
+                    style={{ paddingLeft: 30 }}
                 />
                 {state.canGoForward && (
                 <FontAwesome5
@@ -103,7 +103,7 @@ export default function NewDetails({ route: { params: { url } } }) {
                     size={20}
                     color={colorPalette.primary}
                     onPress={handleForwardButton}
-                    style={styles.button}
+                    style={{ paddingLeft: 30 }}
                 />
                 )}
                 <View style={{ flex: 1 }} />
@@ -111,14 +111,14 @@ export default function NewDetails({ route: { params: { url } } }) {
                     name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
                     size={20}
                     color={colorPalette.primary}
-                    style={styles.button}
                     onPress={handleBookmark}
+                    style={{ paddingRight: 30 }}
                 />
                 <Feather
                     name="share"
                     size={20}
                     color={colorPalette.primary}
-                    style={styles.button}
+                    style={{ paddingRight: 30 }}
                     // onPress={handleShare}
                 />
             </View>
