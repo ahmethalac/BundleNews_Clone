@@ -1,7 +1,11 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, {
+    useEffect, useMemo, useRef, useState
+} from 'react';
 import { WebView } from 'react-native-webview';
 import { View } from 'react-native';
-import { FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
+import {
+    FontAwesome5, Ionicons, Feather, Octicons
+} from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Bar } from 'react-native-progress';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,11 +21,26 @@ export default function NewDetails({ route: { params: { url } } }) {
         canGoBack: false,
         progress: 0
     });
+    const [isModalVisible, setModalVisible] = useState(false);
     const viewRef = useRef(null);
     const colorPalette = useColorPalette();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const isBookmarked = useSelector(state => state?.bookmarks?.bookmarkedNews?.indexOf(url) > -1);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <Octicons
+                    name="kebab-horizontal"
+                    size={24}
+                    color={colorPalette.primary}
+                    style={{ padding: 5 }}
+                    onPress={() => setModalVisible(true)}
+                />
+            ),
+        });
+    }, []);
 
     const handleBackButton = () => {
         if (state.canGoBack) {

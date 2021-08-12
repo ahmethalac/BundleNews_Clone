@@ -38,7 +38,7 @@ export default function StackNavigator() {
                         color={colorPalette.primary}
                         style={{ marginLeft: 20 }}
                     />
-                )
+                ),
             }}
             sceneContainerStyle={{
                 backgroundColor: colorPalette.headerBackground
@@ -55,7 +55,10 @@ export default function StackNavigator() {
             <Screen
                 name="Details"
                 component={NewDetails}
-                options={({ route }) => ({ title: route?.params?.source?.toUpperCase() ?? '' })}
+                options={({ route }) => ({
+                    title: route?.params?.source?.toUpperCase() ?? '',
+                    headerRightContainerStyle: { paddingRight: 20 }
+                })}
             />
         </Navigator>
     );
