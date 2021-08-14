@@ -13,6 +13,7 @@ import styles from './styles';
 import { useColorPalette } from '../../../helpers/hooks';
 import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
 import { onShare } from '../../../helpers/utils';
+import BottomDrawer from '../../BottomDrawer';
 
 export default function NewDetails({ route: { params: { url } } }) {
     const [state, setState] = useState({
@@ -149,6 +150,15 @@ export default function NewDetails({ route: { params: { url } } }) {
                     onPress={handleShare}
                 />
             </View>
+            <BottomDrawer
+                isOpen={isModalVisible}
+                toggleOpen={setModalVisible}
+            >
+                <View style={{
+                    height: 300,
+                }}
+                />
+            </BottomDrawer>
         </View>
     );
 }
