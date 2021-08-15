@@ -4,6 +4,11 @@ import {
 } from 'react-native';
 import styles from './styles';
 
+const animationConfig = {
+    useNativeDriver: true,
+    restSpeedThreshold: 1000,
+    restDisplacementThreshold: 10,
+};
 export default function BottomDrawer({
     isOpen,
     toggleOpen,
@@ -31,9 +36,7 @@ export default function BottomDrawer({
         }).start();
         Animated.spring(y, {
             toValue: 0,
-            useNativeDriver: true,
-            restSpeedThreshold: 1000,
-            restDisplacementThreshold: 100
+            ...animationConfig
         }).start(finished => {
             if (onDrawerOpen && !dontTriggerCallback) {
                 onDrawerOpen(finished);
@@ -48,9 +51,7 @@ export default function BottomDrawer({
         }).start();
         Animated.spring(y, {
             toValue: height,
-            useNativeDriver: true,
-            restSpeedThreshold: 1000,
-            restDisplacementThreshold: 100
+            ...animationConfig
         }).start(finished => {
             setVisible(false);
             if (onDrawerClose) {
@@ -82,11 +83,9 @@ export default function BottomDrawer({
         if (dy > 0) {
             Animated.spring(y, {
                 toValue: dy,
-                useNativeDriver: true,
                 bounciness: 0,
                 speed: 1000,
-                restSpeedThreshold: 1000,
-                restDisplacementThreshold: 100
+                ...animationConfig
             }).start();
         }
     };
