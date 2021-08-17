@@ -10,7 +10,8 @@ export default StyleSheet.create({
     drawer: {
         width: '100%',
         backgroundColor: '#FFF',
-        borderRadius: 20,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
         overflow: 'hidden',
         position: 'absolute',
         bottom: 0,

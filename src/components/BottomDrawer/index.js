@@ -18,16 +18,28 @@ export default function BottomDrawer({
     containerStyles,
     children,
 }) {
-    const [height, setHeight] = useState(0);
+    const height = useRef(0);
     const [visible, setVisible] = useState(true);
     const y = useRef(new Animated.Value(0)).current;
     const opacity = useRef(new Animated.Value(0)).current;
+    const [ready, setReady] = useState(false);
+
+    const waitForHeight = callback => {
+        if (height.current !== 0) {
+            callback();
+        } else {
+            setTimeout(() => { waitForHeight(callback); }, 25);
+        }
+    };
 
     useEffect(() => {
-        // Since height is determined after first mount (because of onLayout prop),
-        // y needs to be initialized to height
-        y.setValue(height);
-    }, [height]);
+        if (isOpen) {
+            setVisible(true);
+            waitForHeight(openDrawer);
+        } else {
+            closeDrawer();
+        }
+    }, [isOpen]);
 
     const openDrawer = ({ dontTriggerCallback } = {}) => {
         Animated.spring(opacity, {
@@ -50,7 +62,7 @@ export default function BottomDrawer({
             useNativeDriver: true,
         }).start();
         Animated.spring(y, {
-            toValue: height,
+            toValue: height.current,
             ...animationConfig
         }).start(finished => {
             setVisible(false);
@@ -60,17 +72,19 @@ export default function BottomDrawer({
         });
     };
 
-    useEffect(() => {
-        if (isOpen) {
-            setVisible(true);
-            openDrawer();
-        } else {
-            closeDrawer();
+    const handleFirstRender = ({ nativeEvent: { layout } }) => {
+        if (height.current === 0) {
+            // Since height is determined after first mount (because of onLayout prop),
+            // y needs to be initialized to height
+            height.current = layout.height;
+            y.setValue(height.current);
+            opacity.setValue(backdropOpacity);
+            if (!ready) setTimeout(() => setReady(true), 0);
         }
-    }, [isOpen]);
+    };
 
     const onPanResponderRelease = (event, { dy, vy }) => {
-        if (dy <= height / 2 && vy < 1) {
+        if (dy <= height.current / 2 && vy < 1) {
             if (dy > 0) {
                 openDrawer({ dontTriggerCallback: true });
             }
@@ -118,12 +132,12 @@ export default function BottomDrawer({
             </Animated.View>
             <Animated.View
                 {...panResponder.panHandlers}
-                onLayout={({ nativeEvent: { layout: { height } } }) => setHeight(height)}
+                onLayout={handleFirstRender}
                 style={[
                     styles.drawer,
                     {
                         transform: [{ translateY: y }],
-                        display: height === 0 && 'none'
+                        opacity: ready ? 1 : 0,
                     }
                 ]}
             >
