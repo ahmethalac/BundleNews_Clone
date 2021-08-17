@@ -10,7 +10,6 @@ export const newsSelector = createSelector(
 export const newsSelectorBySource = createSelector(
     getNews,
     news => (country, source) => Object.keys(news).reduce((acc, key) => {
-        console.log(news);
         if (key.startsWith('_')) {
             return acc;
         }

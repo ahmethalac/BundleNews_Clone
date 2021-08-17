@@ -30,6 +30,7 @@ export default function Home({ route: { params: { type, source, tag } } }) {
         setRefreshing(true);
         dispatch(fetchAllNews({
             language,
+            tag,
             callback: onRefresh
         }));
     };
@@ -50,7 +51,7 @@ export default function Home({ route: { params: { type, source, tag } } }) {
             default:
                 return getNews(language, tag);
         }
-    }, [type]);
+    }, [type, language, tag, getNews]);
 
     return (
         <View style={{ backgroundColor: colorPalette.headerBackground }}>
