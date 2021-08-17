@@ -13,6 +13,7 @@ export const newCardGrid = StyleSheet.create({
     container: {
         margin: '4%',
         borderRadius: 5,
+        overflow: 'hidden',
     },
     source: {
         marginLeft: '7%',
@@ -29,8 +30,6 @@ export const newCardGrid = StyleSheet.create({
     image: {
         height: 120,
         width: '100%',
-        borderTopLeftRadius: 5,
-        borderTopRightRadius: 5,
     }
 });
 

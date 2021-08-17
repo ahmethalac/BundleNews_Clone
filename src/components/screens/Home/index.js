@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
-    View, StatusBar
+    View, StatusBar, RefreshControl, Text, ScrollView
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import MasonryList from '@react-native-seoul/masonry-list';
@@ -17,6 +17,7 @@ export default function Home() {
     const layout = useSelector(layoutSelector);
     const getNews = useSelector(newsSelector);
     const [refreshing, setRefreshing] = useState(false);
+    const numColumns = useMemo(() => (layout === 'grid' ? 2 : 1), [layout]);
 
     const onRefresh = (status, message) => {
         setRefreshing(false);
@@ -44,14 +45,42 @@ export default function Home() {
     return (
         <View>
             <StatusBar barStyle={colorPalette.barStyle} />
-            <MasonryList
-                key={layout}
-                onRefresh={handleRefresh}
-                refreshing={refreshing}
-                renderItem={renderItem}
-                data={getNews(language)}
-                numColumns={layout === 'grid' ? 2 : 1}
-            />
+            <ScrollView
+                style={{
+                    height: '100%',
+                    width: '100%',
+                }}
+                refreshControl={(
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={handleRefresh}
+                        tintColor={colorPalette.red}
+                        colors={[colorPalette.red]}
+                    />
+                  )}
+            >
+                <View
+                    style={{
+                        flex: 1,
+                        flexDirection: 'row'
+                    }}
+
+                >
+                    {Array.from(Array(numColumns), (_, num) => (
+                        <View key={num.toString()} style={{ flex: 1 / numColumns, }}>
+                            {getNews(language).map((item, i) => {
+                                if (i % numColumns === num) {
+                                    return renderItem({
+                                        item,
+                                        i
+                                    });
+                                }
+                                return null;
+                            }).filter(e => !!e)}
+                        </View>
+                    ))}
+                </View>
+            </ScrollView>
         </View>
     );
 }
