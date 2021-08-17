@@ -23,7 +23,7 @@ export default function NewCard({
     const isBookmarked = useSelector(state => state?.bookmarks?.bookmarkedNews?.indexOf(url) > -1);
 
     const onPressHandler = () => {
-        navigation.navigate('Details', {
+        navigation.push('Details', {
             url,
             source
         });

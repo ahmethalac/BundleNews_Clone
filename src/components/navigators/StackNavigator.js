@@ -1,9 +1,10 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import { Ionicons, Entypo } from '@expo/vector-icons';
 import TabNavigator from './TabNavigator';
 import NewDetails from '../screens/NewDetails';
 import { useColorPalette } from '../../helpers/hooks';
+import Home from '../screens/Home';
 
 const { Screen, Navigator } = createStackNavigator();
 
@@ -31,17 +32,7 @@ export default function StackNavigator() {
                     color: colorPalette.primary,
                 },
                 headerBackTitleVisible: false,
-                headerBackImage: () => (
-                    <Ionicons
-                        name="close"
-                        size={25}
-                        color={colorPalette.primary}
-                        style={{ marginLeft: 20 }}
-                    />
-                ),
-            }}
-            sceneContainerStyle={{
-                backgroundColor: colorPalette.headerBackground
+                cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS
             }}
             // eslint-disable-next-line indent
         >
@@ -49,15 +40,44 @@ export default function StackNavigator() {
                 name="App"
                 component={TabNavigator}
                 options={{
-                    headerShown: false
+                    headerShown: false,
                 }}
             />
             <Screen
                 name="Details"
                 component={NewDetails}
+                options={({ navigation, route }) => {
+                    const fromChannelPreview = navigation?.dangerouslyGetState()?.routes?.some(route => route?.name === 'ChannelPreview');
+                    return {
+                        title: route?.params?.source?.toUpperCase() ?? '',
+                        headerRightContainerStyle: { paddingRight: 20 },
+                        headerBackImage: () => (
+                            <Ionicons
+                                name="close"
+                                size={25}
+                                color={colorPalette.primary}
+                                style={{ marginLeft: 20 }}
+                            />
+                        ),
+                        cardStyleInterpolator: fromChannelPreview
+                                                    ? CardStyleInterpolators.forVerticalIOS
+                                                    : CardStyleInterpolators.forHorizontalIOS
+                    };
+                }}
+            />
+            <Screen
+                name="ChannelPreview"
+                component={Home}
                 options={({ route }) => ({
                     title: route?.params?.source?.toUpperCase() ?? '',
-                    headerRightContainerStyle: { paddingRight: 20 }
+                    headerBackImage: () => (
+                        <Entypo
+                            name="chevron-left"
+                            size={25}
+                            color={colorPalette.primary}
+                            style={{ marginLeft: 20 }}
+                        />
+                    )
                 })}
             />
         </Navigator>

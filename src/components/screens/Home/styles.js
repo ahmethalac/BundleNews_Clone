@@ -82,13 +82,3 @@ export const newCardBigList = StyleSheet.create({
         marginLeft: 15
     },
 });
-
-export default StyleSheet.create({
-    loading: {
-        position: 'absolute',
-        width: '100%',
-        height: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});

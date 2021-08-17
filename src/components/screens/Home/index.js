@@ -6,15 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllNews } from '../../../actions/newsActions';
 import { useColorPalette } from '../../../helpers/hooks';
 import { languageSelector, layoutSelector } from '../../../selectors';
-import { newsSelector } from '../../../selectors/newsSelectors';
+import { newsSelector, newsSelectorBySource } from '../../../selectors/newsSelectors';
 import NewCard from './NewCard';
 
-export default function Home() {
+export default function Home({ route: { params: { type, source, tag } } }) {
     const colorPalette = useColorPalette();
     const dispatch = useDispatch();
     const language = useSelector(languageSelector);
     const layout = useSelector(layoutSelector);
     const getNews = useSelector(newsSelector);
+    const getNewsBySource = useSelector(newsSelectorBySource);
     const [refreshing, setRefreshing] = useState(false);
     const numColumns = useMemo(() => (layout === 'grid' ? 2 : 1), [layout]);
 
@@ -41,15 +42,25 @@ export default function Home() {
         />
     );
 
+    const news = useMemo(() => {
+        switch (type) {
+            case 'source':
+                return getNewsBySource(language, source);
+            case 'home':
+            default:
+                return getNews(language, tag);
+        }
+    }, [type]);
+
     return (
-        <View>
+        <View style={{ backgroundColor: colorPalette.headerBackground }}>
             <StatusBar barStyle={colorPalette.barStyle} />
             <ScrollView
                 style={{
                     height: '100%',
                     width: '100%',
                 }}
-                refreshControl={(
+                refreshControl={type === 'home' && (
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={handleRefresh}
@@ -67,7 +78,7 @@ export default function Home() {
                 >
                     {Array.from(Array(numColumns), (_, num) => (
                         <View key={num.toString()} style={{ flex: 1 / numColumns, }}>
-                            {getNews(language).map((item, i) => {
+                            {news.map((item, i) => {
                                 if (i % numColumns === num) {
                                     return renderItem({
                                         item,

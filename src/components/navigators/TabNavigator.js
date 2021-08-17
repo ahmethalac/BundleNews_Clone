@@ -35,9 +35,6 @@ export default function TabNavigator() {
                     color: colorPalette.primary,
                 }
             }}
-            sceneContainerStyle={{
-                backgroundColor: colorPalette.headerBackground
-            }}
             // eslint-disable-next-line indent
         >
             <Screen
@@ -54,6 +51,7 @@ export default function TabNavigator() {
                     ),
                     headerRight: props => <LayoutButton {...props} />,
                 }}
+                initialParams={{ type: 'home' }}
             />
             <Screen
                 name="Discover"
