@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import {
-    View, StatusBar, RefreshControl, Text, ScrollView
+    View, StatusBar, RefreshControl, ScrollView
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import MasonryList from '@react-native-seoul/masonry-list';
 import { fetchAllNews } from '../../../actions/newsActions';
 import { useColorPalette } from '../../../helpers/hooks';
 import { languageSelector, layoutSelector } from '../../../selectors';
