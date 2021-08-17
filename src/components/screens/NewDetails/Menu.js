@@ -7,13 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 import { openURL } from 'expo-linking';
 import * as Clipboard from 'expo-clipboard';
 import BottomDrawer from '../../BottomDrawer';
-import { useColorPalette } from '../../../helpers/hooks';
+import { useColorPalette, useTranslate } from '../../../helpers/hooks';
 import styles from './styles';
 
 export default function Menu({ viewRef, url, source }) {
     const [isModalVisible, setModalVisible] = useState(false);
     const colorPalette = useColorPalette();
     const navigation = useNavigation();
+    const translate = useTranslate();
 
     useEffect(() => {
         navigation.setOptions({
@@ -31,13 +32,13 @@ export default function Menu({ viewRef, url, source }) {
 
     const options = [
         {
-            text: 'Refresh',
+            text: translate('Refresh'),
             IconPackage: FontAwesome,
             iconName: 'refresh',
             callback: () => viewRef?.current?.reload()
         },
         {
-            text: 'Channel Preview',
+            text: translate('Channel Preview'),
             IconPackage: FontAwesome,
             iconName: 'arrow-right',
             callback: () => navigation.navigate('ChannelPreview', {
@@ -46,13 +47,13 @@ export default function Menu({ viewRef, url, source }) {
             })
         },
         {
-            text: Platform.OS === 'ios' ? 'Open in Safari' : 'Open in Browser',
+            text: Platform.OS === 'ios' ? translate('Open in Safari') : translate('Open in Browser'),
             IconPackage: MaterialCommunityIcons,
             iconName: Platform.OS === 'ios' ? 'compass-outline' : 'web',
             callback: () => openURL(url)
         },
         {
-            text: 'Copy Link',
+            text: translate('Copy Link'),
             IconPackage: Entypo,
             iconName: 'link',
             callback: () => Clipboard.default.setString(url)

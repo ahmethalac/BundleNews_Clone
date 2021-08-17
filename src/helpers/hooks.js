@@ -36,7 +36,7 @@ export const useColorPalette = () => {
 export const useTranslate = () => {
     const language = useSelector(languageSelector);
     if (language === 'tr') {
-        return text => translations[text];
+        return text => translations[text] ?? text;
     }
     return text => text;
 };
