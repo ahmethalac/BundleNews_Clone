@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, Pressable, Text } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+    Platform, Pressable, Text, View
+} from 'react-native';
 import {
     Octicons, FontAwesome, MaterialCommunityIcons, Entypo
 } from '@expo/vector-icons';
@@ -9,8 +11,10 @@ import * as Clipboard from 'expo-clipboard';
 import BottomDrawer from '../../BottomDrawer';
 import { useColorPalette, useTranslate } from '../../../helpers/hooks';
 import styles from './styles';
+import TemporaryModal from '../../TemporaryModal';
 
 export default function Menu({ viewRef, url, source }) {
+    const linkCopiedRef = useRef(null);
     const [isModalVisible, setModalVisible] = useState(false);
     const colorPalette = useColorPalette();
     const navigation = useNavigation();
@@ -56,23 +60,26 @@ export default function Menu({ viewRef, url, source }) {
             text: translate('Copy Link'),
             IconPackage: Entypo,
             iconName: 'link',
-            callback: () => Clipboard.default.setString(url)
+            callback: () => {
+                Clipboard.default.setString(url);
+                linkCopiedRef?.current?.trigger();
+            }
         }
     ];
 
     return (
-        <BottomDrawer
-            isOpen={isModalVisible}
-            toggleOpen={setModalVisible}
-            containerStyles={[
+        <View>
+            <BottomDrawer
+                isOpen={isModalVisible}
+                toggleOpen={setModalVisible}
+                containerStyles={[
                 styles.menu,
                 {
                     backgroundColor: colorPalette.headerBackground
                 }
             ]}
-            // eslint-disable-next-line indent
-        >
-            {options.map(({
+            >
+                {options.map(({
                 text,
                 IconPackage,
                 iconName,
@@ -94,6 +101,20 @@ export default function Menu({ viewRef, url, source }) {
                     />
                 </Pressable>
             ))}
-        </BottomDrawer>
+            </BottomDrawer>
+            <TemporaryModal ref={linkCopiedRef}>
+                <Text
+                    style={{
+                        color: '#DDD',
+                        backgroundColor: '#222',
+                        borderRadius: 20,
+                        padding: 10,
+                        zIndex: 100
+                    }}
+                >
+                    {translate('Copied Link to Clipboard')}
+                </Text>
+            </TemporaryModal>
+        </View>
     );
 }

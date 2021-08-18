@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import {
     View, Text, Image, Pressable
 } from 'react-native';
@@ -9,6 +9,7 @@ import { useColorPalette } from '../../../helpers/hooks';
 import { newCardGrid, newCardList, newCardBigList } from './styles';
 import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
 import { onShare } from '../../../helpers/utils';
+import TemporaryModal from '../../TemporaryModal';
 
 export default function NewCard({
     image,
@@ -17,6 +18,7 @@ export default function NewCard({
     url,
     layout
 }) {
+    const bookmarkRef = useRef(null);
     const navigation = useNavigation();
     const colorPalette = useColorPalette();
     const dispatch = useDispatch();
@@ -47,6 +49,7 @@ export default function NewCard({
                 dispatch(removeBookmark(url));
             } else {
                 dispatch(bookmarkNew(url));
+                bookmarkRef?.current?.trigger();
             }
         };
         const handleShare = () => {
@@ -157,6 +160,15 @@ export default function NewCard({
             <View style={[layoutStyles.container, { backgroundColor: colorPalette.secondary }]}>
                 {layoutOrder}
             </View>
+            <TemporaryModal ref={bookmarkRef}>
+                <Image
+                    source={require('../../../../assets/bookmarkIcon.png')}
+                    style={{
+                        height: 40,
+                        width: 40
+                    }}
+                />
+            </TemporaryModal>
         </Pressable>
     );
 }

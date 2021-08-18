@@ -1,14 +1,13 @@
-import React from 'react';
-import { View } from 'react-native';
-import {
-    FontAwesome5, Ionicons, Feather
-} from '@expo/vector-icons';
+import React, { useRef } from 'react';
+import { Image, View } from 'react-native';
+import { FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useColorPalette } from '../../../helpers/hooks';
 import styles from './styles';
 import { bookmarkNew, removeBookmark } from '../../../actions/newsActions';
 import { onShare } from '../../../helpers/utils';
+import TemporaryModal from '../../TemporaryModal';
 
 export default function BottomBar({
     canGoBack,
@@ -16,6 +15,7 @@ export default function BottomBar({
     viewRef,
     url
 }) {
+    const bookmarkRef = useRef(null);
     const colorPalette = useColorPalette();
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -40,6 +40,7 @@ export default function BottomBar({
             dispatch(removeBookmark(url));
         } else {
             dispatch(bookmarkNew(url));
+            bookmarkRef?.current?.trigger();
         }
     };
 
@@ -83,6 +84,15 @@ export default function BottomBar({
                 style={{ paddingRight: 30 }}
                 onPress={handleShare}
             />
+            <TemporaryModal ref={bookmarkRef}>
+                <Image
+                    source={require('../../../../assets/bookmarkIcon.png')}
+                    style={{
+                        height: 40,
+                        width: 40
+                    }}
+                />
+            </TemporaryModal>
         </View>
     );
 }
