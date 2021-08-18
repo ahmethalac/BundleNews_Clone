@@ -13,6 +13,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import reducers from './reducers';
 import middlewares from './middlewares';
 import StackNavigator from './components/navigators/StackNavigator';
+import BackgroundFetcher from './components/BackgroundFetcher';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -45,6 +46,7 @@ function App() {
                     <StackNavigator />
                 </NavigationContainer>
             </PersistGate>
+            <BackgroundFetcher />
         </Provider>
     );
 

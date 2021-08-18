@@ -16,3 +16,10 @@ export const newsSelectorBySource = createSelector(
         return [...acc, ...news[key][country]?.filter(e => e.source === source)];
     }, [])
 );
+
+export const fetchingStatusSelector = state => state.fetch;
+
+export const isFetching = createSelector(
+    fetchingStatusSelector,
+    fetchStatus => fetchStatus.fetching
+);

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
     View, StatusBar, RefreshControl, ScrollView
 } from 'react-native';
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllNews } from '../../../actions/newsActions';
 import { useColorPalette } from '../../../helpers/hooks';
 import { languageSelector, layoutSelector } from '../../../selectors';
-import { newsSelector, newsSelectorBySource } from '../../../selectors/newsSelectors';
+import { isFetching, newsSelector, newsSelectorBySource } from '../../../selectors/newsSelectors';
 import NewCard from './NewCard';
 
 export default function Home({ route: { params: { type, source, tag } } }) {
@@ -16,22 +16,13 @@ export default function Home({ route: { params: { type, source, tag } } }) {
     const layout = useSelector(layoutSelector);
     const getNews = useSelector(newsSelector);
     const getNewsBySource = useSelector(newsSelectorBySource);
-    const [refreshing, setRefreshing] = useState(false);
+    const refreshing = useSelector(isFetching);
     const numColumns = useMemo(() => (layout === 'grid' ? 2 : 1), [layout]);
 
-    const onRefresh = (status, message) => {
-        setRefreshing(false);
-        if (status === 'failure') {
-            console.error(message);
-        }
-    };
-
     const handleRefresh = () => {
-        setRefreshing(true);
         dispatch(fetchAllNews({
             language,
             tag,
-            callback: onRefresh
         }));
     };
 

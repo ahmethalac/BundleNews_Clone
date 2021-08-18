@@ -5,3 +5,15 @@ export const onShare = async ({ message, type }) => {
     const result = await Share.share(customPayload);
     return result;
 };
+
+export const safeJSONParse = (str, defVal) => {
+    if (str) {
+        try {
+            return JSON.parse(str);
+        } catch {
+            return defVal ?? str;
+        }
+    } else {
+        return defVal ?? str;
+    }
+};
