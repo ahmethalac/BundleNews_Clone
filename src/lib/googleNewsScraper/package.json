@@ -9,5 +9,9 @@
     "express": "^4.17.1",
     "puppeteer": "^10.2.0"
   },
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">= 6.9.4",
+    "npm": ">= 4.4.0"
+  }
 }
