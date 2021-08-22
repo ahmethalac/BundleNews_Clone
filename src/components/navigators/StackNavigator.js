@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { Ionicons, Entypo } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
 import TabNavigator from './TabNavigator';
 import NewDetails from '../screens/NewDetails';
 import { useColorPalette } from '../../helpers/hooks';
 import Home from '../screens/Home';
+import { fetchAllNews } from '../../actions/newsActions';
+import { languageSelector } from '../../selectors';
 
 const { Screen, Navigator } = createStackNavigator();
 
 export default function StackNavigator() {
     const colorPalette = useColorPalette();
+    const dispatch = useDispatch();
+    const language = useSelector(languageSelector);
+    useEffect(() => {
+        dispatch(fetchAllNews({
+            language,
+        }));
+    }, []);
     return (
         <Navigator
             initialRouteName="App"

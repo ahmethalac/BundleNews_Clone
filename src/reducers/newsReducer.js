@@ -7,9 +7,9 @@ export default (state = {}, action) => {
             const newState = { ...state };
             if (!newState[tag]) {
                 newState[tag] = {};
-                if (!newState[tag][country]) {
-                    newState[tag][country] = [];
-                }
+            }
+            if (!newState[tag][country]) {
+                newState[tag][country] = [];
             }
             const updatedNews = [...newState[tag][country]];
             for (let i = news.length - 1; i > -1; i--) {
