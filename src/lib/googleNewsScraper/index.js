@@ -4,7 +4,12 @@ import parse from 'body-parser';
 
 const GOOGLE_NEWS_URL = 'https://news.google.com/headlines/section/topic';
 
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch({
+    args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
+    ],
+});
 const page = await browser.newPage();
 
 const init = async () => {
