@@ -14,7 +14,7 @@ const page = await browser.newPage();
 
 const init = async () => {
     const app = express();
-    const port = 3001;
+    const port = process.env.PORT || 3001;
 
     app.use((req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
@@ -23,7 +23,7 @@ const init = async () => {
     });
 
     app.listen(port, () => {
-        console.log(`Listening at http://localhost:${port}`);
+        console.log(`Listening at port:${port}`);
     });
 
     app.post('/getNews', parse.json(), async (req, res) => {
