@@ -13,7 +13,7 @@ import TemporaryModal from '../../TemporaryModal';
 
 export default function NewCard({
     image,
-    name,
+    title,
     source,
     url,
     layout
@@ -114,7 +114,7 @@ export default function NewCard({
                 key="title"
                 // eslint-disable-next-line indent
             >
-                {name}
+                {title}
             </Text>
         );
 

@@ -21,6 +21,9 @@ import BackgroundFetcher from './components/BackgroundFetcher';
 import { registerFetchTask } from './helpers/utils';
 import { BACKGROUND_FETCH_TASK } from './constants/others';
 
+// Uncomment if you want to flush AsyncStorage
+// AsyncStorage.multiRemove(['persist:app', 'persist:news', 'persist:bookmarks']);
+
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     const now = Date.now();
     console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);

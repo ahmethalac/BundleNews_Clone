@@ -47,7 +47,11 @@ export default function BackgroundFetcher() {
     const handleNewsFetch = event => {
         const news = safeJSONParse(event?.nativeEvent?.data, []);
         console.debug(news);
-        dispatch(fetchAllNewsSuccess(news));
+        dispatch(fetchAllNewsSuccess({
+            news,
+            country,
+            tag
+        }));
     };
 
     return (
