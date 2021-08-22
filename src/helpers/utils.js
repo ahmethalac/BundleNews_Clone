@@ -29,24 +29,24 @@ export async function registerFetchTask(
     switch (status) {
         case BackgroundFetch.Status.Restricted:
         case BackgroundFetch.Status.Denied:
-            console.log('Background execution is disabled');
+            console.info('Background execution is disabled');
             return;
 
         default: {
-            console.debug('Background execution allowed');
+            console.info('Background execution allowed');
 
             let tasks = await TaskManager.getRegisteredTasksAsync();
             if (tasks.find(f => f.taskName === taskname) == null) {
-                console.log('Registering task');
+                console.info('Registering task');
                 await BackgroundFetch.registerTaskAsync(taskname);
 
                 tasks = await TaskManager.getRegisteredTasksAsync();
-                console.debug('Registered tasks', tasks);
+                console.info('Registered tasks', tasks);
             } else {
-                console.log(`Task ${taskname} already registered, skipping`);
+                console.info(`Task ${taskname} already registered, skipping`);
             }
 
-            console.log('Setting interval to', interval);
+            console.info('Setting interval to', interval);
             await BackgroundFetch.setMinimumIntervalAsync(interval);
         }
     }

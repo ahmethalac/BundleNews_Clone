@@ -43,10 +43,10 @@ export default function BackgroundFetcher() {
         );
     });`;
 
-    console.log(uri);
+    console.debug(uri);
     const handleNewsFetch = event => {
         const news = safeJSONParse(event?.nativeEvent?.data, []);
-        console.log(news);
+        console.debug(news);
         dispatch(fetchAllNewsSuccess(news));
     };
 
